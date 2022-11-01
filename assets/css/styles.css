@@ -1,0 +1,182 @@
+body {
+    background-color: #102747;
+}
+
+#searchInput {
+    background-color: #0a1630;
+}
+
+.resDiv {
+    background-color: #0a1630;
+    border-radius: 15px;
+    border: 1px solid #282c2c;
+}
+
+.resImg {
+    height: 30vmin; 
+    width: 30vmin;
+}
+
+.resP {
+    font-size: 2vmin;
+}
+
+.has-search .form-control {
+    padding-left: 3.5rem;
+    border-radius: 15px;
+    border: 3px solid #0a1630;
+    background-color: #0a1630;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 3rem;
+    height: 2.8rem;
+    line-height: 2.375rem;
+    text-align: center;
+    /* pointer-events: none; */
+    color: #0a1630;
+    background-color: transparent; 
+    border: 0; 
+    outline: none;
+}
+
+.has-search .form-control-feedback:focus{
+    border: 0; 
+    border-color: transparent;
+    background-color: transparent; 
+    box-shadow: 1px 1px #AEB5B5;
+    border-radius: 50%;
+    color: #444747;
+}
+
+.anchorRes {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.anchorRes:hover {
+    color: #00A0C6;
+    cursor:pointer;
+    text-decoration: none; 
+}
+
+
+.anchorRes:focus {
+    color: #e483ec;
+    cursor:pointer;
+    text-decoration: none;
+}
+
+p.nftP {
+    margin: 0 !important;
+}
+
+/* OVERLAY */
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 2;
+    cursor: pointer;
+  }
+  
+#loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+/* For collections page Jayr Custom */
+.banner-div {
+    background-image: linear-gradient( rgba(0, 0, 0, .8), rgba(29, 126, 204, 1) );
+    border-bottom: solid 5px white;
+}
+
+img.banner-top{
+    width: 100%;
+    height: 20rem;
+}
+
+.pro-img {
+    margin-top: -25vmin;
+    margin-bottom: 20px
+}
+
+.little-profile .pro-img img {
+    width: 50vmin;
+    height: 50vmin;
+    /* -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
+    border-radius: 100%;
+    border: solid 5px white;
+}
+
+.socmed-icons {
+    height: 5vh; 
+    width: 5vh;
+    display: inline-block;
+}
+
+.customDiv {
+    padding-left: 1vmax;
+    padding-right: 1vmax; 
+}
+
+.pageInfo {
+    color: #2196f3;
+}
+
+@media only screen and (min-width: 1190px) {
+    .resImg {
+        height: 15vmin; 
+        width: 15vmin;
+    }
+    .customDiv {
+        padding-left: 13vmax;
+        padding-right: 13vmax; 
+    }
+    
+}
+
+@media only screen and (min-width: 992px) {
+    .resImg {
+        height: 20vmin; 
+        width: 20vmin;
+    } 
+
+    .resP {
+        font-size: 1vmin;
+    }
+
+}
+
+@media only screen and (min-width: 500px) {
+    .pro-img {
+        margin-top: -15vmin;
+        margin-bottom: 20px
+    }
+    
+    .little-profile .pro-img img {
+        width: 30vmin;
+        height: 30vmin;
+        /* -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
+        border-radius: 100%
+    }
+
+}
+

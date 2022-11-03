@@ -24,103 +24,73 @@
                 </div>
                 <div class="col-12">
                     <div class="row" id="resDivs">
-                        <?php
-                            if(isset($_POST['question']) && "" != trim($_POST['question']))
-                            {
-                                $str = $_POST['question'];
-                                
-                                $str = rawurlencode($str);
-                                $curl = curl_init();
-                                curl_setopt_array($curl, array(
-                                    CURLOPT_URL => "http://51.68.206.144:8002/" . $str."?start=25&end=48",
-                                    CURLOPT_RETURNTRANSFER => true,
-                                    CURLOPT_ENCODING => "",
-                                    CURLOPT_MAXREDIRS => 10,
-                                    CURLOPT_TIMEOUT => 60,
-                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_2_0,
-                                    CURLOPT_SSL_VERIFYHOST => 0,
-                                    CURLOPT_CUSTOMREQUEST => "GET",
-                                    CURLOPT_HTTPHEADER => array(
-                                        "cache-control: no-cache",
-                                    ),
-                                ));
-
-                                $i = 0;
-                                $response = curl_exec($curl);
-                                $err = curl_error($curl);
-                                curl_close($curl);
-                                if ($err) {
-                                    echo "cURL Error #:" . $err;
-                                } else {
-                                    $dt = json_decode($response, true);
-                                    
-                                    if (count($dt) < 1) {
-                                        echo "Match does not found on keyword &ldquo;".$str."&rdquo;";
-                                    } else {
-                                        
-                                       echo '<div class="row" id="resDivs">';
-                                                
-                                        foreach ($dt as $key => $response2):
-                                            $bc = explode("-",$response2['network']);
-                                            $lp = strtolower($bc[0]);
-                                        ?>
-                                            <div class="col-xl-3 col-6 p-2">
-                                                <a href="/nftpage/<?php echo strtolower($response2['symbol']).'.php'; ?>" class="anchorRes" target="_blank">
-                                                    <div class="card resDiv h-100">
-                                                        <div class="row card-body">
-                                                            <div class="col-12">
-                                                                <div class="col-12">
-                                                                    <img src="<?php 
-                                                                        if(null != $response2['img_url'])
-                                                                          echo $response2['img_url'];
-                                                                        else echo '/costs/assets/images/no-image.png'; ?>" class="resImg img-fluid"
-                                                                    />
-                                                                </div>
-                                                                <h4><br/><?php echo $response2['name']; ?></h4>
-                                                                <p><strong>Marketplace :  </strong><?php echo $response2['marketplace']; ?><br>
-                                                                <span><strong>Blockchain : </strong><?php echo ucwords($lp); ?></span><br>
-                                                                <?php 
-                                                                    if($response2['network'] == "etheruem-mainnet" || $response2['network'] == "polygon-mainnet")
-                                                                    {
-                                                                        if($response2['floor_price'] >0)
-                                                                            echo "<span><strong>Floor Price :  </strong>".$response2['floor_price']." (ETH)</span>";
-                                                                    }
-                                                                ?>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        <?php 
-                                        endforeach;
-                                        echo '</div>';
-                                    }
-                                }
-                            }
-                        ?>
+                       
                     </div>
+                    <div class="d-flex justify-content-center">
+                        <button id="btn24" type="button" class="btn btn-primary d-none align-self-center">Next 24</button>
+                    </div>
+                    
                 </div>
             </div>
         </main>
     
 
 <script>
+    // Declare Two global variable. 
+    // 1. hold the criteria. 
+    // 2. hold the count page. 
+    // 3. 
+
+    // var criteria = $('input[name=question]').val();
+    var criteria = null;
+    var pageNo = 0;         // Set Default to 0.
+    var totalPage = 0;
+    $('#btn24').on('click',function(){
+        $('#srcBtn').trigger('click');
+    });
     $(function(){
         $('#question').on('keyup', function(e){
             e.keyCode == 13 ? $('#srcBtn').trigger('click') : null;
         });
         $('#srcBtn').on('click',function(){
+            if(criteria != $('input[name=question]').val())
+            {
+                criteria = $('input[name=question]').val();
+                pageNo = 0;
+                totalPage = 0;
+                $('#resDivs').empty();
+            }
+                
+            pageNo ++;
+
             $.ajax({
                 type:'POST',
                 url:'api_anagrams.php',
                 sync: true,
-                data: question  = $('input[name=question]').val(),
-                // dataType:'JSON',
+                data: {
+                    q : criteria,
+                    s : (pageNo-1) * 24,
+                    e : pageNo * 24,
+                },
+                dataType:'JSON',
                 success:function(data){
-                    alert(data);
-                    //$('#resDivs').empty();
-                    // $('#resDivs').append(data);
+                    // alert(data);
+                    // $('#resDivs').empty();
+                    $('#resDivs').append(data['records']);
+                   
+                    if(data['total'] <= 24)
+                        totalPage = 1; 
+                    else{
+                        if(totalPage == 0)
+                        {
+                            of = data['total'] % 24;
+                            tp = data['total'] - of;
+                            totalPage = (tp / 24) + (of > 0 ? 1 : 0);
+                            $('#btn24').removeClass('d-none').addClass("d-block")
+                        }
+                    }
+                    pageNo >= totalPage ? $('#btn24').removeClass('d-block').addClass("d-none") : null;
+                    
                 },
                 error:function(data){
                     alert("Failed");

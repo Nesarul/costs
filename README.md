@@ -1,19 +1,3 @@
-Costs.ai
-
-For now, I want to change it to no longer use any sub pages. This will make things a lot easier, and the subpages currently don't really show any useful info anyhow. No we no longer need dynamically generated urls.
-
-Keep a copy of how we have it now in case I want to change it later to use subpages again
-
-Here's the changes that are needed:
-
-1.  The main search API now requires a start and end parameter or it won't work. You can use this for the "More Results" button. It is like 
-http://51.68.206.144:8002/dogs?start=1&end=24
-
-2. You can use this image for the NFT collections with no image: http://www.clker.com/clipart-no-image-available-1.html
-
-3. Under the search box on the main page at https://costs.ai add this centered text similar to how I have text under the search box at https://topdatasets.com :
-Searching Millions of NFTs on 10 Different Blockchains
-
 4. In case you need it, the list of networks/blockchains from my API is:
 "ethereum-mainnet",
 "solana-mainnet",
@@ -25,17 +9,6 @@ Searching Millions of NFTs on 10 Different Blockchains
 "harmony-mainnet",
 "optimism-mainnet",
 "polygon-mainnet"
-
-
-5.  You have this incorrect:
-"If blockchain is etheruem-mainnet show it as Ethereum"
-You have it as "Etheruem"  (it is spelled wrong)
-
-This still needs to be done:
------------------------
-5. After I do a search it takes me to https://costs.ai/index.php
-but it should take me to https://costs.ai
-------------------------
 
 6. Instead of linking each result to a subpage, link instead to the marketplace URL for each NFT collection. 
 This marketplace URL is not in my API, you will need to create it.  It is based on the network/blockchain name.
@@ -108,3 +81,9 @@ POST http://51.68.206.144:8012/age
 }
 
 The ouptut will be an image url like with text-to-image.
+
+=============================
+
+Next:
+
+I want to add a version of Costs.ai and TopDatasets.com to BoredHumans.com, similar to what we did with text-to-image.php (and the 3 API pages you just added: TTS, Styleclip, and Age Progression). Both costs.ai and topdatasets.com are already set up to use an API from my remote server, so I am not sure you need to change that part any. I mainly need the main page for each of those to be changed to use my BoredHumans.com format. I don't want the page to be anything like what I have now at Costs.ai and TopDatasets.com, it will instead be like all these other Boredhumans.com page you have been doing for me.

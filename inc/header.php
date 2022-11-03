@@ -21,7 +21,7 @@
     <head>
         <!-- <title>NFT Search Engine</title> -->
         <title><?php echo $dt['contractMetadata']['name']; ?></title>
-        <link rel="icon" type="image/x-icon" href="/costs/images/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <meta content="A search engine for NFTs" name="description" /> -->

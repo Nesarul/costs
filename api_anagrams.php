@@ -8,7 +8,7 @@
 	function getData($str)
 	{
 		$str = rawurlencode($str);
-
+		$retVal['err'] = "";
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => "http://51.68.206.144:8002/" . $str."?start=".$_POST['s']."&end=".$_POST['e'],
@@ -32,8 +32,11 @@
 		} else {
 			$dt = json_decode($response, true);
 			
-			if (count($dt)<1) {
-				echo "Match does not found on keyword &ldquo;".$str."&rdquo;";
+			if (null === $dt) {
+				$retVal['records'] = "Match does not found on keyword &ldquo;".$str."&rdquo;";
+				$retVal['err'] = "NR";
+				echo json_encode($retVal);
+
 			} else {
 				$sData['records'] = "";
 				$price = "";	
@@ -44,13 +47,15 @@
 					$lp = strtolower($bc[0]) == "etheruem" ? "ethereum" : strtolower($bc[0]);
 					if($response2['network'] == "etheruem-mainnet" || $response2['network'] == "polygon-mainnet")
 						if($response2['floor_price'] > 0)
-							$price = $response2['floor_price'].'(ETH)';
+							$price = $response2['floor_price'].' (ETH)';
 
-					$im = $response2["img_url"] == null ? "/costs/assets/images/no-image.png": $response2["img_url"];
+					$im = $response2["img_url"] == null ? "/assets/images/no-image.png": $response2["img_url"];
+
+					// $kk = getNetworks($response2);
 
 					$sData['records'].=
 					'<div class="col-xl-3 col-6 p-2">
-						<a href="nftpage.php?slug='.$response2["symbol"].'" class="anchorRes" id="gnayboy-love-kiss">
+						<a href="'.$response2['link'].'" class="anchorRes" id="gnayboy-love-kiss">
 							<div class="card resDiv h-100">
 								<div class="row card-body">
 									<div class="col-12">
@@ -72,6 +77,71 @@
 				echo json_encode($sData);
 				}
 
-			}
 		}
+	}
+
+	// function getNetworks($ar){
+	// 	$val=[
+	// 		"ethereum-mainnet"=>
+	// 		[
+	// 			'name'=>"Ethereum",
+	// 			'web'=>"https://opensea.io/assets?search[query]=".$ar['name']
+	// 		],
+	// 		"etheruem-mainnet"=>
+	// 		[
+	// 			'name'=>"Ethereum",
+	// 			'web'=>"https://opensea.io/assets?search[query]=".$ar['name']
+	// 		],
+	// 		"solana-mainnet"=>
+	// 		[
+	// 			'name'=>"Salona",
+	// 			'web'=>"https://magiceden.io/marketplace/".$ar['symbol']
+	// 		],
+	// 		"arbitrum-mainnet"=>
+	// 		[
+	// 			'name'=>"Arbitrum",
+	// 			'web'=>"https://stratosnft.io/search?query=".$ar['name']
+	// 		],
+	// 		"avalanche-mainnet"=>
+	// 		[
+	// 			'name'=>"Avalanche",
+	// 			'web'=>"https://joepegs.com"
+	// 		],
+	// 		"bsc-mainnet"=>
+	// 		[
+	// 			'name'=>"BSC",
+	// 			'web'=>"https://www.binance.com/en/nft/search-result?keyword=".$ar['name']
+	// 		],
+	// 		"celo-mainnet"=>
+	// 		[
+	// 			'name'=>"Celo",
+	// 			'web'=>"https://cyberbox.art"
+	// 		],
+	// 		"fantom-mainnet"=>
+	// 		[
+	// 			'name'=>"Fantom",
+	// 			'web'=>"https://paintswap.finance"
+	// 		],
+	// 		"harmony-mainnet"=>
+	// 		[
+	// 			'name'=>"Harmony",
+	// 			'web'=>"https://madnfts.io"
+	// 		],
+	// 		"optimism-mainnet"=>
+	// 		[
+	// 			'name'=>"Optimism",
+	// 			'web'=>"https://qx.app/"
+	// 		],
+	// 		"polygon-mainnet"=>
+	// 		[
+	// 			'name'=>"Polygon",
+	// 			'web'=>"https://opensea.io/assets?search[query]=".$ar['name']
+	// 		],
+	// 	];
+
+	// 	if(array_key_exists($ar['network'],$val))
+	// 		return $val[$ar['network']];
+	// 	else
+	// 		return "invalid";
+	// }
 ?>

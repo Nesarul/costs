@@ -27,7 +27,7 @@
                        
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button id="btn24" type="button" class="btn btn-primary d-none align-self-center">Next 24</button>
+                        <button id="btn24" type="button" class="btn btn-primary d-none align-self-center">More Results</button>
                     </div>
                     
                 </div>
@@ -74,19 +74,18 @@
                 },
                 dataType:'JSON',
                 success:function(data){
-                    // alert(data);
-                    // $('#resDivs').empty();
                     $('#resDivs').append(data['records']);
                    
                     if(data['total'] <= 24)
                         totalPage = 1; 
                     else{
-                        if(totalPage == 0)
+                        if(totalPage == 0 && data['err'] != "NR")
                         {
                             of = data['total'] % 24;
                             tp = data['total'] - of;
                             totalPage = (tp / 24) + (of > 0 ? 1 : 0);
-                            $('#btn24').removeClass('d-none').addClass("d-block")
+                            if(totalPage > 1)
+                                $('#btn24').removeClass('d-none').addClass("d-block")
                         }
                     }
                     pageNo >= totalPage ? $('#btn24').removeClass('d-block').addClass("d-none") : null;

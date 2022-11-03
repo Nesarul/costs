@@ -1,15 +1,22 @@
+https://boredhumans.com/text-to-image.php
+
+A) Fix the submission button
+B) Fix the bad words filter so it works with newer PHP versions.
+
+
+=======================================
+
 Costs.ai
 
 Here's the changes that are needed:
 
-1.  The main search API now requires a start and end parameter or it won't work. You can use this for the "More Results" button. It is like 
-http://51.68.206.144:8002/dogs?start=1&end=24
+1.  If I do a search with 0 results (like "car") it shows an error. It should say "No Results"
 
-My API programmer wrote: it will now return "results" and total_count. results are the start and end for the results and total+count is the total count."
+1.5 It should only show the "Next 24" button if there are actually more results to show. And it should not say "NExt 24" t should say "More Results".
 
 2. You can use this image for the NFT collections with no image: http://www.clker.com/clipart-no-image-available-1.html
 
-4. In case you need it, the list of networks/blockchains from my API is:
+3. In case you need it, the list of networks/blockchains from my API is:
 "ethereum-mainnet",
 "solana-mainnet",
 "arbitrum-mainnet",
@@ -21,6 +28,11 @@ My API programmer wrote: it will now return "results" and total_count. results a
 "optimism-mainnet",
 "polygon-mainnet"
 
+4. You have it like this:  
+Floor Price: .115(ETH)
+It should be
+Floor Price: .115 (ETH)
+with a space between the number and the crypto name.
 
 5.  You have this incorrect:
 "If blockchain is etheruem-mainnet show it as Ethereum"
@@ -79,6 +91,7 @@ Body should be like this :
 }
 
 It will ouput a lot of info but all I want is the text, which is like this:  results.json['transcription']
+My demo page for this is at https://boredhumans.com/speech-to-text.php
 
 
 B) StyleClip (you upload a photo and can change the hair color and other things)
@@ -104,13 +117,6 @@ POST http://51.68.206.144:8012/age
 
 The ouptut will be an image url like with text-to-image.
 
-=============================
 
-Next:
-
-I want to add a version of Costs.ai and TopDatasets.com to BoredHumans.com, similar to what we did with text-to-image.php (and the 3 API pages you just added: TTS, Styleclip, and Age Progression). Both costs.ai and topdatasets.com are already set up to use an API from my remote server, so I am not sure you need to change that part any. I mainly need the main page for each of those to be changed to use my BoredHumans.com format. I don't want the page to be anything like what I have now at Costs.ai and TopDatasets.com, it will instead be like all these other Boredhumans.com page you have been doing for me.
-
-
- 
 
 
